@@ -14,6 +14,7 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->text('syarat_dokumen');
             $table->text('prosedur');
+            $table->enum('status', ['aktif', 'nonaktif'])->default('aktif');
             $table->timestamps();
         });
     }
