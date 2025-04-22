@@ -9,12 +9,17 @@ return new class extends Migration
     public function up()
     {
         Schema::create('warga', function (Blueprint $table) {
-            $table->id('id_warga');
-            $table->string('nik')->unique();
-            $table->string('nama_warga');
-            $table->string('alamat');
-            $table->string('telepon');
-            $table->foreignId('id_wilayah')->constrained('wilayah', 'id_wilayah')->onDelete('cascade');
+            $table->id();
+            $table->string('nik', 16)->unique();
+            $table->string('nama');
+            $table->string('tempat_lahir');
+            $table->date('tanggal_lahir');
+            $table->enum('jenis_kelamin', ['L', 'P']);
+            $table->text('alamat');
+            $table->string('agama', 20);
+            $table->string('status_perkawinan', 20);
+            $table->string('pekerjaan', 50);
+            $table->string('kewarganegaraan', 3);
             $table->timestamps();
         });
     }

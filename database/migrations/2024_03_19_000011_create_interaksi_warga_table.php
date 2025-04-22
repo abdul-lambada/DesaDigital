@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('judul_topik');
             $table->text('deskripsi_topik');
             $table->date('tanggal_post');
-            $table->foreignId('id_warga')->constrained('warga', 'id_warga')->onDelete('cascade');
+            $table->foreignId('id_warga')->constrained('warga')->onDelete('cascade');
             $table->timestamps();
         });
     }

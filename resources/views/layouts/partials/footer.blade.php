@@ -6,7 +6,7 @@
                 document.write(new Date().getFullYear());
             </script>
             , made with ❤️ by
-            <a href="javascript:void(0)" class="footer-link fw-bolder">Desa Digital</a>
+            <a href="javascript:void(0)" class="footer-link fw-bolder">{{ config('app.name') }}</a>
         </div>
         <div>
             <a href="javascript:void(0)" class="footer-link me-4">Documentation</a>

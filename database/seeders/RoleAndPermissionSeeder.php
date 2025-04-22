@@ -32,6 +32,12 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'edit wilayah']);
         Permission::create(['name' => 'delete wilayah']);
 
+        // Warga permissions
+        Permission::create(['name' => 'view warga']);
+        Permission::create(['name' => 'create warga']);
+        Permission::create(['name' => 'edit warga']);
+        Permission::create(['name' => 'delete warga']);
+
         // Anggaran permissions
         Permission::create(['name' => 'view anggaran']);
         Permission::create(['name' => 'create anggaran']);
@@ -100,6 +106,7 @@ class RoleAndPermissionSeeder extends Seeder
             'view desa',
             'view pemerintahan',
             'view wilayah',
+            'view warga',
             'view anggaran',
             'view potensi',
             'view galeri',
@@ -118,6 +125,9 @@ class RoleAndPermissionSeeder extends Seeder
             'edit pemerintahan',
             'view wilayah',
             'edit wilayah',
+            'view warga',
+            'create warga',
+            'edit warga',
             'view berita',
             'create berita',
             'edit berita'

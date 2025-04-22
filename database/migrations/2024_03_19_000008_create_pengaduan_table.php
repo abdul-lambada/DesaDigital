@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('pengaduan', function (Blueprint $table) {
             $table->id('id_pengaduan');
-            $table->foreignId('id_warga')->constrained('warga', 'id_warga')->onDelete('cascade');
+            $table->foreignId('id_warga')->constrained('warga')->onDelete('cascade');
             $table->date('tanggal_pengaduan');
             $table->string('judul_pengaduan');
             $table->text('deskripsi_pengaduan');
