@@ -3,7 +3,7 @@
     class="light-style customizer-hide"
     dir="ltr"
     data-theme="theme-default"
-    data-sneat/assets-path="{{ asset('sneat/assets/') }}"
+    data-assets-path="{{ asset('sneat/assets/') }}"
     data-template="vertical-menu-template">
     <head>
         <meta charset="utf-8">

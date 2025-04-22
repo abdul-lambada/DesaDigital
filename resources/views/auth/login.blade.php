@@ -1,3 +1,6 @@
+<?php
+use Illuminate\Support\Facades\Route;
+?>
 @extends('layouts.guest')
 
 @section('content')
@@ -47,11 +50,9 @@
                         <div class="mb-3 form-password-toggle">
                             <div class="d-flex justify-content-between">
                                 <label class="form-label" for="password">Password</label>
-                                @if (Route::has('password.request'))
-                                    <a href="{{ route('password.request') }}">
-                                        <small>Forgot Password?</small>
-                                    </a>
-                                @endif
+                                <a href="{{ route('password.request') }}">
+                                    <small>Forgot Password?</small>
+                                </a>
                             </div>
                             <div class="input-group input-group-merge">
                                 <input type="password" 

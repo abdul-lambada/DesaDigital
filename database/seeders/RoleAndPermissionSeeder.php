@@ -8,154 +8,106 @@ use Spatie\Permission\Models\Permission;
 
 class RoleAndPermissionSeeder extends Seeder
 {
-    public function run()
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
     {
         // Reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // Create permissions
-        // Desa permissions
-        Permission::create(['name' => 'view desa']);
-        Permission::create(['name' => 'create desa']);
-        Permission::create(['name' => 'edit desa']);
-        Permission::create(['name' => 'delete desa']);
+        $permissions = [
+            // Manajemen Pengguna
+            'view users', 'create users', 'edit users', 'delete users',
+            'view roles', 'create roles', 'edit roles', 'delete roles',
+            'view permissions', 'create permissions', 'edit permissions', 'delete permissions',
+            
+            // Data Desa
+            'view desa', 'create desa', 'edit desa', 'delete desa',
+            'view pemerintahan', 'create pemerintahan', 'edit pemerintahan', 'delete pemerintahan',
+            'view wilayah', 'create wilayah', 'edit wilayah', 'delete wilayah',
+            
+            // Kependudukan
+            'view warga', 'create warga', 'edit warga', 'delete warga',
+            'view keluarga', 'create keluarga', 'edit keluarga', 'delete keluarga',
+            
+            // Layanan
+            'view layanan', 'create layanan', 'edit layanan', 'delete layanan',
+            'view pengaduan', 'create pengaduan', 'respond pengaduan', 'delete pengaduan',
+            
+            // Informasi
+            'view berita', 'create berita', 'edit berita', 'delete berita',
+            'view galeri', 'create galeri', 'edit galeri', 'delete galeri',
+            'view potensi', 'create potensi', 'edit potensi', 'delete potensi',
+            
+            // Dokumen
+            'view dokumen', 'create dokumen', 'edit dokumen', 'delete dokumen',
+            'view anggaran', 'create anggaran', 'edit anggaran', 'delete anggaran',
+            
+            // Interaksi
+            'view interaksi', 'create interaksi', 'moderate interaksi', 'delete interaksi',
+            'view komentar', 'create komentar', 'moderate komentar', 'delete komentar'
+        ];
 
-        // Pemerintahan permissions
-        Permission::create(['name' => 'view pemerintahan']);
-        Permission::create(['name' => 'create pemerintahan']);
-        Permission::create(['name' => 'edit pemerintahan']);
-        Permission::create(['name' => 'delete pemerintahan']);
-
-        // Wilayah permissions
-        Permission::create(['name' => 'view wilayah']);
-        Permission::create(['name' => 'create wilayah']);
-        Permission::create(['name' => 'edit wilayah']);
-        Permission::create(['name' => 'delete wilayah']);
-
-        // Warga permissions
-        Permission::create(['name' => 'view warga']);
-        Permission::create(['name' => 'create warga']);
-        Permission::create(['name' => 'edit warga']);
-        Permission::create(['name' => 'delete warga']);
-
-        // Anggaran permissions
-        Permission::create(['name' => 'view anggaran']);
-        Permission::create(['name' => 'create anggaran']);
-        Permission::create(['name' => 'edit anggaran']);
-        Permission::create(['name' => 'delete anggaran']);
-
-        // Potensi Desa permissions
-        Permission::create(['name' => 'view potensi']);
-        Permission::create(['name' => 'create potensi']);
-        Permission::create(['name' => 'edit potensi']);
-        Permission::create(['name' => 'delete potensi']);
-
-        // Galeri permissions
-        Permission::create(['name' => 'view galeri']);
-        Permission::create(['name' => 'create galeri']);
-        Permission::create(['name' => 'edit galeri']);
-        Permission::create(['name' => 'delete galeri']);
-
-        // Download permissions
-        Permission::create(['name' => 'view download']);
-        Permission::create(['name' => 'create download']);
-        Permission::create(['name' => 'edit download']);
-        Permission::create(['name' => 'delete download']);
-
-        // Berita permissions
-        Permission::create(['name' => 'view berita']);
-        Permission::create(['name' => 'create berita']);
-        Permission::create(['name' => 'edit berita']);
-        Permission::create(['name' => 'delete berita']);
-
-        // Layanan permissions
-        Permission::create(['name' => 'view layanan']);
-        Permission::create(['name' => 'create layanan']);
-        Permission::create(['name' => 'edit layanan']);
-        Permission::create(['name' => 'delete layanan']);
-
-        // Pengaduan permissions
-        Permission::create(['name' => 'view pengaduan']);
-        Permission::create(['name' => 'create pengaduan']);
-        Permission::create(['name' => 'respond pengaduan']);
-        Permission::create(['name' => 'delete pengaduan']);
-
-        // Interaksi permissions
-        Permission::create(['name' => 'view interaksi']);
-        Permission::create(['name' => 'create interaksi']);
-        Permission::create(['name' => 'moderate interaksi']);
-        Permission::create(['name' => 'delete interaksi']);
+        foreach ($permissions as $permission) {
+            Permission::create(['name' => $permission]);
+        }
 
         // Create roles and assign permissions
-        
-        // Admin Desa (Super Admin)
+        // Super Admin
         $superAdmin = Role::create(['name' => 'super-admin']);
         $superAdmin->givePermissionTo(Permission::all());
 
-        // Admin Pengaduan
-        $adminPengaduan = Role::create(['name' => 'admin-pengaduan']);
-        $adminPengaduan->givePermissionTo([
-            'view pengaduan',
-            'respond pengaduan',
-            'delete pengaduan'
+        // Admin Desa
+        $adminDesa = Role::create(['name' => 'admin-desa']);
+        $adminDesa->givePermissionTo([
+            'view users', 'create users', 'edit users',
+            'view roles', 'view permissions',
+            'view desa', 'edit desa',
+            'view pemerintahan', 'edit pemerintahan',
+            'view wilayah', 'edit wilayah',
+            'view warga', 'create warga', 'edit warga',
+            'view keluarga', 'create keluarga', 'edit keluarga',
+            'view layanan', 'edit layanan',
+            'view pengaduan', 'respond pengaduan',
+            'view berita', 'create berita', 'edit berita',
+            'view galeri', 'create galeri', 'edit galeri',
+            'view dokumen', 'create dokumen', 'edit dokumen',
+            'view anggaran', 'edit anggaran',
+            'moderate interaksi', 'moderate komentar'
         ]);
 
         // Kepala Desa
         $kepalaDesa = Role::create(['name' => 'kepala-desa']);
         $kepalaDesa->givePermissionTo([
-            'view desa',
-            'view pemerintahan',
-            'view wilayah',
-            'view warga',
-            'view anggaran',
-            'view potensi',
-            'view galeri',
-            'view download',
-            'view berita',
-            'view layanan',
-            'view pengaduan'
+            'view desa', 'view pemerintahan', 'view wilayah',
+            'view warga', 'view keluarga',
+            'view layanan', 'view pengaduan', 'respond pengaduan',
+            'view berita', 'view galeri', 'view potensi',
+            'view dokumen', 'view anggaran',
+            'view interaksi', 'view komentar'
         ]);
 
         // Perangkat Desa
         $perangkatDesa = Role::create(['name' => 'perangkat-desa']);
         $perangkatDesa->givePermissionTo([
-            'view desa',
-            'edit desa',
-            'view pemerintahan',
-            'edit pemerintahan',
-            'view wilayah',
-            'edit wilayah',
-            'view warga',
-            'create warga',
-            'edit warga',
-            'view berita',
-            'create berita',
-            'edit berita'
-        ]);
-
-        // Moderator
-        $moderator = Role::create(['name' => 'moderator']);
-        $moderator->givePermissionTo([
-            'view interaksi',
-            'moderate interaksi',
-            'delete interaksi'
+            'view warga', 'create warga', 'edit warga',
+            'view keluarga', 'create keluarga', 'edit keluarga',
+            'view layanan', 'create layanan',
+            'view pengaduan', 'respond pengaduan',
+            'view berita', 'create berita',
+            'view dokumen', 'create dokumen'
         ]);
 
         // Warga
         $warga = Role::create(['name' => 'warga']);
         $warga->givePermissionTo([
-            'view desa',
-            'view pemerintahan',
-            'view wilayah',
-            'view potensi',
-            'view galeri',
-            'view download',
-            'view berita',
-            'view layanan',
-            'create pengaduan',
-            'view pengaduan',
-            'create interaksi',
-            'view interaksi'
+            'view desa', 'view pemerintahan', 'view wilayah',
+            'view layanan', 'create pengaduan',
+            'view berita', 'view galeri', 'view potensi',
+            'view dokumen',
+            'create interaksi', 'create komentar'
         ]);
     }
 } 
