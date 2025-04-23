@@ -7,10 +7,12 @@ use App\Models\Berita;
 use App\Models\Pengaduan;
 use App\Models\PotensiDesa;
 use App\Models\LayananPublik;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
@@ -19,249 +21,16 @@ class DashboardController extends Controller
         $this->middleware('permission:view dashboard')->only('index');
     }
 
-    public function index()
+    public function index(): View
     {
-        $user = Auth::user();
-        $menuItems = [];
+        $data = [
+            'total_users' => User::count(),
+            'total_berita' => Berita::count(),
+            'total_pengaduan' => Pengaduan::count(),
+            'total_layanan' => LayananPublik::count(),
+        ];
 
-        // Super Admin gets all menu items
-        if ($user->hasRole('super-admin')) {
-            $menuItems = [
-                [
-                    'title' => 'Dashboard',
-                    'icon' => 'fas fa-tachometer-alt',
-                    'url' => route('dashboard'),
-                    'permission' => 'view dashboard'
-                ],
-                [
-                    'title' => 'User Management',
-                    'icon' => 'fas fa-users',
-                    'url' => route('users.index'),
-                    'permission' => 'view users'
-                ],
-                [
-                    'title' => 'Role & Permission',
-                    'icon' => 'fas fa-user-shield',
-                    'url' => route('roles.index'),
-                    'permission' => 'view roles'
-                ],
-                [
-                    'title' => 'Desa',
-                    'icon' => 'fas fa-home',
-                    'url' => route('desa.index'),
-                    'permission' => 'view desa'
-                ],
-                [
-                    'title' => 'Pemerintahan',
-                    'icon' => 'fas fa-landmark',
-                    'url' => route('pemerintahan.index'),
-                    'permission' => 'view pemerintahan'
-                ],
-                [
-                    'title' => 'Wilayah',
-                    'icon' => 'fas fa-map-marked-alt',
-                    'url' => route('wilayah.index'),
-                    'permission' => 'view wilayah'
-                ],
-                [
-                    'title' => 'Warga',
-                    'icon' => 'fas fa-user-friends',
-                    'url' => route('warga.index'),
-                    'permission' => 'view warga'
-                ],
-                [
-                    'title' => 'Layanan Publik',
-                    'icon' => 'fas fa-concierge-bell',
-                    'url' => route('layanan.index'),
-                    'permission' => 'view layanan'
-                ],
-                [
-                    'title' => 'Pengaduan',
-                    'icon' => 'fas fa-comments',
-                    'url' => route('pengaduan.index'),
-                    'permission' => 'view pengaduan'
-                ],
-                [
-                    'title' => 'Berita',
-                    'icon' => 'fas fa-newspaper',
-                    'url' => route('berita.index'),
-                    'permission' => 'view berita'
-                ],
-                [
-                    'title' => 'Galeri',
-                    'icon' => 'fas fa-images',
-                    'url' => route('galeri.index'),
-                    'permission' => 'view galeri'
-                ],
-                [
-                    'title' => 'Potensi Desa',
-                    'icon' => 'fas fa-chart-line',
-                    'url' => route('potensi.index'),
-                    'permission' => 'view potensi'
-                ],
-                [
-                    'title' => 'Download Area',
-                    'icon' => 'fas fa-download',
-                    'url' => route('download.index'),
-                    'permission' => 'view download'
-                ],
-                [
-                    'title' => 'Interaksi Warga',
-                    'icon' => 'fas fa-comments',
-                    'url' => route('interaksi.index'),
-                    'permission' => 'view interaksi'
-                ],
-                [
-                    'title' => 'Transparansi Anggaran',
-                    'icon' => 'fas fa-money-bill-wave',
-                    'url' => route('anggaran.index'),
-                    'permission' => 'view anggaran'
-                ]
-            ];
-        }
-        // Admin gets limited menu items
-        else if ($user->hasRole('admin')) {
-            $menuItems = [
-                [
-                    'title' => 'Dashboard',
-                    'icon' => 'fas fa-tachometer-alt',
-                    'url' => route('dashboard'),
-                    'permission' => 'view dashboard'
-                ],
-                [
-                    'title' => 'Desa',
-                    'icon' => 'fas fa-home',
-                    'url' => route('desa.index'),
-                    'permission' => 'view desa'
-                ],
-                [
-                    'title' => 'Pemerintahan',
-                    'icon' => 'fas fa-landmark',
-                    'url' => route('pemerintahan.index'),
-                    'permission' => 'view pemerintahan'
-                ],
-                [
-                    'title' => 'Wilayah',
-                    'icon' => 'fas fa-map-marked-alt',
-                    'url' => route('wilayah.index'),
-                    'permission' => 'view wilayah'
-                ],
-                [
-                    'title' => 'Warga',
-                    'icon' => 'fas fa-user-friends',
-                    'url' => route('warga.index'),
-                    'permission' => 'view warga'
-                ],
-                [
-                    'title' => 'Layanan Publik',
-                    'icon' => 'fas fa-concierge-bell',
-                    'url' => route('layanan.index'),
-                    'permission' => 'view layanan'
-                ],
-                [
-                    'title' => 'Pengaduan',
-                    'icon' => 'fas fa-comments',
-                    'url' => route('pengaduan.index'),
-                    'permission' => 'view pengaduan'
-                ],
-                [
-                    'title' => 'Berita',
-                    'icon' => 'fas fa-newspaper',
-                    'url' => route('berita.index'),
-                    'permission' => 'view berita'
-                ],
-                [
-                    'title' => 'Galeri',
-                    'icon' => 'fas fa-images',
-                    'url' => route('galeri.index'),
-                    'permission' => 'view galeri'
-                ],
-                [
-                    'title' => 'Potensi Desa',
-                    'icon' => 'fas fa-chart-line',
-                    'url' => route('potensi.index'),
-                    'permission' => 'view potensi'
-                ],
-                [
-                    'title' => 'Download Area',
-                    'icon' => 'fas fa-download',
-                    'url' => route('download.index'),
-                    'permission' => 'view download'
-                ],
-                [
-                    'title' => 'Interaksi Warga',
-                    'icon' => 'fas fa-comments',
-                    'url' => route('interaksi.index'),
-                    'permission' => 'view interaksi'
-                ],
-                [
-                    'title' => 'Transparansi Anggaran',
-                    'icon' => 'fas fa-money-bill-wave',
-                    'url' => route('anggaran.index'),
-                    'permission' => 'view anggaran'
-                ]
-            ];
-        }
-        // Regular users get basic menu items
-        else {
-            $menuItems = [
-                [
-                    'title' => 'Dashboard',
-                    'icon' => 'fas fa-tachometer-alt',
-                    'url' => route('dashboard'),
-                    'permission' => 'view dashboard'
-                ],
-                [
-                    'title' => 'Layanan Publik',
-                    'icon' => 'fas fa-concierge-bell',
-                    'url' => route('layanan.index'),
-                    'permission' => 'view layanan'
-                ],
-                [
-                    'title' => 'Pengaduan',
-                    'icon' => 'fas fa-comments',
-                    'url' => route('pengaduan.index'),
-                    'permission' => 'view pengaduan'
-                ],
-                [
-                    'title' => 'Berita',
-                    'icon' => 'fas fa-newspaper',
-                    'url' => route('berita.index'),
-                    'permission' => 'view berita'
-                ],
-                [
-                    'title' => 'Galeri',
-                    'icon' => 'fas fa-images',
-                    'url' => route('galeri.index'),
-                    'permission' => 'view galeri'
-                ],
-                [
-                    'title' => 'Potensi Desa',
-                    'icon' => 'fas fa-chart-line',
-                    'url' => route('potensi.index'),
-                    'permission' => 'view potensi'
-                ],
-                [
-                    'title' => 'Download Area',
-                    'icon' => 'fas fa-download',
-                    'url' => route('download.index'),
-                    'permission' => 'view download'
-                ],
-                [
-                    'title' => 'Interaksi Warga',
-                    'icon' => 'fas fa-comments',
-                    'url' => route('interaksi.index'),
-                    'permission' => 'view interaksi'
-                ]
-            ];
-        }
-
-        // Filter menu items based on user permissions
-        $menuItems = array_filter($menuItems, function($item) use ($user) {
-            return $user->can($item['permission']);
-        });
-
-        return view('dashboard', compact('menuItems'));
+        return view('dashboard', compact('data'));
     }
 
     private function getDashboardTitle($role)

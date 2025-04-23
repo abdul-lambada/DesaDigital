@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <div class="container-fluid flex-grow-1 container-p-y">
+    <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             <div class="col-lg-12 mb-4 order-0">
                 <div class="card">
@@ -11,8 +11,12 @@
                         <div class="col-sm-7">
                             <div class="card-body">
                                 <h5 class="card-title text-primary">Welcome {{ auth()->user()->name }}! 🎉</h5>
-                                <p class="mb-4">You are logged in as <span
-                                        class="fw-bold">{{ auth()->user()->roles->first()->name }}</span></p>
+                                <p class="mb-4">
+                                    You have done <span class="fw-medium">72%</span> more sales today. Check your new badge in
+                                    your profile.
+                                </p>
+
+                                <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
                             </div>
                         </div>
                         <div class="col-sm-5 text-center text-sm-left">
@@ -36,7 +40,7 @@
                                 <div class="card-info">
                                     <p class="card-text">Users</p>
                                     <div class="d-flex align-items-end mb-2">
-                                        <h4 class="card-title mb-0 me-2">0</h4>
+                                        <h4 class="card-title mb-0 me-2">{{ number_format($data['total_users']) }}</h4>
                                     </div>
                                     <small>Total Users</small>
                                 </div>
@@ -57,7 +61,7 @@
                                 <div class="card-info">
                                     <p class="card-text">Berita</p>
                                     <div class="d-flex align-items-end mb-2">
-                                        <h4 class="card-title mb-0 me-2">0</h4>
+                                        <h4 class="card-title mb-0 me-2">{{ number_format($data['total_berita']) }}</h4>
                                     </div>
                                     <small>Total Berita</small>
                                 </div>
@@ -78,7 +82,7 @@
                                 <div class="card-info">
                                     <p class="card-text">Pengaduan</p>
                                     <div class="d-flex align-items-end mb-2">
-                                        <h4 class="card-title mb-0 me-2">0</h4>
+                                        <h4 class="card-title mb-0 me-2">{{ number_format($data['total_pengaduan']) }}</h4>
                                     </div>
                                     <small>Total Pengaduan</small>
                                 </div>
@@ -99,7 +103,7 @@
                                 <div class="card-info">
                                     <p class="card-text">Layanan</p>
                                     <div class="d-flex align-items-end mb-2">
-                                        <h4 class="card-title mb-0 me-2">0</h4>
+                                        <h4 class="card-title mb-0 me-2">{{ number_format($data['total_layanan']) }}</h4>
                                     </div>
                                     <small>Total Layanan</small>
                                 </div>
