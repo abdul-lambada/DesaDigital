@@ -11,14 +11,21 @@ return new class extends Migration
         Schema::create('desa', function (Blueprint $table) {
             $table->id('id_desa');
             $table->string('nama_desa');
-            $table->text('sejarah');
-            $table->text('visi_misi');
-            $table->decimal('luas_wilayah', 10, 2);
-            $table->integer('jumlah_penduduk');
-            $table->string('peta_lokasi');
-            $table->string('alamat_kantor');
-            $table->string('telepon_kantor');
-            $table->string('email_desa');
+            $table->string('kode_desa');
+            $table->string('kecamatan');
+            $table->string('kabupaten');
+            $table->string('provinsi');
+            $table->text('alamat');
+            $table->string('telepon')->nullable();
+            $table->string('email')->nullable();
+            $table->string('website')->nullable();
+            $table->string('logo')->nullable();
+            $table->string('foto_kantor')->nullable();
+            $table->text('visi')->nullable();
+            $table->text('misi')->nullable();
+            $table->text('sejarah')->nullable();
+            $table->text('geografis')->nullable();
+            $table->text('demografis')->nullable();
             $table->timestamps();
         });
     }
@@ -27,4 +34,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('desa');
     }
-}; 
+};
