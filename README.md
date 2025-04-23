@@ -1,61 +1,130 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Desa Digital
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<div align="center">
+  <p>
+    <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" height="100" alt="Laravel Logo">
+  </p>
 
-## About Laravel
+  <p>
+    <img src="https://spatie.be/images/og-image.jpg" height="100" alt="Spatie Permission">
+  </p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+  <p>
+    <img src="https://raw.githubusercontent.com/laravel/breeze/1.x/art/breeze-logo.svg" height="100" alt="Laravel Breeze">
+  </p>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+  <p>
+    <img src="https://camo.githubusercontent.com/544257fca6c1eb70768d5654b4c6456830de1bf5f0fad36742276fd124ecb477/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f74686d73676e722f736e6561742d68746d6c2d61646d696e2d74656d706c6174652d667265652f6173736574732f696d672f736e6561742d6c6f676f2e706e67" height="100" alt="Sneat Admin Template">
+  </p>
+</div>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Tentang Desa Digital
 
-## Learning Laravel
+Desa Digital adalah sistem informasi manajemen desa yang dibangun menggunakan Laravel 12. Aplikasi ini membantu dalam pengelolaan data desa dengan fitur-fitur:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Manajemen Data Desa
+- Manajemen Penduduk
+- Manajemen Pemerintahan Desa
+- Manajemen Wilayah
+- Layanan Publik
+- Pengaduan Masyarakat
+- Potensi Desa
+- Berita & Galeri
+- Download Area
+- Transparansi Anggaran
+- Interaksi Warga
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Teknologi yang Digunakan
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- [Laravel 12](https://laravel.com/docs) - Framework PHP
+- [Spatie Permission](https://spatie.be/docs/laravel-permission) - Manajemen Role dan Permission
+- [Laravel Breeze](https://laravel.com/docs/starter-kits#laravel-breeze) - Authentication
+- [Sneat Admin Template](https://themeselection.com/item/sneat-free-bootstrap-html-admin-template/) - Admin Template
+- MySQL - Database
 
-## Laravel Sponsors
+## Persyaratan Sistem
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- PHP >= 8.2
+- Composer
+- Node.js & NPM
+- MySQL
+- Git
 
-### Premium Partners
+## Instalasi
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+1. Clone repository
+```bash
+git clone https://github.com/username/desa-digital.git
+cd desa-digital
+```
 
-## Contributing
+2. Install dependencies PHP
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+3. Install dependencies JavaScript
+```bash
+npm install
+```
 
-## Code of Conduct
+4. Copy file environment
+```bash
+cp .env.example .env
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+5. Generate application key
+```bash
+php artisan key:generate
+```
 
-## Security Vulnerabilities
+6. Konfigurasi database di file .env
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=desa_digital
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+7. Jalankan migrasi dan seeder
+```bash
+php artisan migrate --seed
+```
 
-## License
+8. Build assets
+```bash
+npm run build
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+9. Jalankan aplikasi
+```bash
+php artisan serve
+```
+
+## Akses Aplikasi
+
+Buka browser dan akses `http://localhost:8000`
+
+Default user:
+- Email: admin@admin.com
+- Password: password
+
+## Fitur Role dan Permission
+
+Aplikasi ini menggunakan Spatie Permission dengan role default:
+- Super Admin
+- Admin
+- Staff
+- User
+
+Setiap role memiliki permission yang berbeda sesuai dengan kebutuhan.
+
+## Kontribusi
+
+Silakan berkontribusi dengan membuat pull request. Untuk perubahan besar, harap buka issue terlebih dahulu untuk mendiskusikan perubahan yang diinginkan.
+
+## Lisensi
+
+Aplikasi ini adalah software open-source yang dilisensikan di bawah [MIT license](https://opensource.org/licenses/MIT).
