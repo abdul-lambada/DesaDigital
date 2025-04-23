@@ -1,91 +1,164 @@
 @extends('layouts.app')
 
-@php
-    use Illuminate\Support\Facades\Auth;
-@endphp
-
 @section('title', 'Dashboard')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <!-- Main content -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Dashboard</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="btn-group me-2">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+    <div class="container-fluid flex-grow-1 container-p-y">
+        <div class="row">
+            <div class="col-lg-12 mb-4 order-0">
+                <div class="card">
+                    <div class="d-flex align-items-end row">
+                        <div class="col-sm-7">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">Welcome {{ auth()->user()->name }}! 🎉</h5>
+                                <p class="mb-4">You are logged in as <span
+                                        class="fw-bold">{{ auth()->user()->roles->first()->name }}</span></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 text-center text-sm-left">
+                            <div class="card-body pb-0 px-0 px-md-4">
+                                <img src="{{ asset('sneat/assets/img/illustrations/man-with-laptop-light.png') }}"
+                                    height="140" alt="View Badge User"
+                                    data-app-dark-img="illustrations/man-with-laptop-dark.png"
+                                    data-app-light-img="illustrations/man-with-laptop-light.png" />
+                            </div>
+                        </div>
                     </div>
-                    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <span data-feather="calendar"></span>
-                        This week
-                    </button>
                 </div>
             </div>
 
-            <!-- Dashboard content -->
+            <!-- Statistics -->
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
                     <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title">Welcome to Desa Digital Dashboard</h5>
-                        </div>
                         <div class="card-body">
-                            <p>You are logged in as {{ auth()->user()->name }} with role: {{ auth()->user()->roles->first()->name }}</p>
-                            <!-- Add your dashboard content here -->
+                            <div class="d-flex justify-content-between">
+                                <div class="card-info">
+                                    <p class="card-text">Users</p>
+                                    <div class="d-flex align-items-end mb-2">
+                                        <h4 class="card-title mb-0 me-2">0</h4>
+                                    </div>
+                                    <small>Total Users</small>
+                                </div>
+                                <div class="card-icon">
+                                    <span class="badge bg-label-primary rounded p-2">
+                                        <i class="bx bx-user bx-sm"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div class="card-info">
+                                    <p class="card-text">Berita</p>
+                                    <div class="d-flex align-items-end mb-2">
+                                        <h4 class="card-title mb-0 me-2">0</h4>
+                                    </div>
+                                    <small>Total Berita</small>
+                                </div>
+                                <div class="card-icon">
+                                    <span class="badge bg-label-success rounded p-2">
+                                        <i class="bx bx-news bx-sm"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div class="card-info">
+                                    <p class="card-text">Pengaduan</p>
+                                    <div class="d-flex align-items-end mb-2">
+                                        <h4 class="card-title mb-0 me-2">0</h4>
+                                    </div>
+                                    <small>Total Pengaduan</small>
+                                </div>
+                                <div class="card-icon">
+                                    <span class="badge bg-label-warning rounded p-2">
+                                        <i class="bx bx-message-dots bx-sm"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div class="card-info">
+                                    <p class="card-text">Layanan</p>
+                                    <div class="d-flex align-items-end mb-2">
+                                        <h4 class="card-title mb-0 me-2">0</h4>
+                                    </div>
+                                    <small>Total Layanan</small>
+                                </div>
+                                <div class="card-icon">
+                                    <span class="badge bg-label-info rounded p-2">
+                                        <i class="bx bx-service bx-sm"></i>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
     </div>
-</div>
 @endsection
 
 @push('styles')
-<style>
-    .sidebar {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 100;
-        padding: 48px 0 0;
-        box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-    }
+    <style>
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 48px 0 0;
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+        }
 
-    .sidebar-sticky {
-        position: relative;
-        top: 0;
-        height: calc(100vh - 48px);
-        padding-top: .5rem;
-        overflow-x: hidden;
-        overflow-y: auto;
-    }
+        .sidebar-sticky {
+            position: relative;
+            top: 0;
+            height: calc(100vh - 48px);
+            padding-top: .5rem;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
 
-    .sidebar .nav-link {
-        font-weight: 500;
-        color: #333;
-        padding: 0.5rem 1rem;
-    }
+        .sidebar .nav-link {
+            font-weight: 500;
+            color: #333;
+            padding: 0.5rem 1rem;
+        }
 
-    .sidebar .nav-link.active {
-        color: #2470dc;
-    }
+        .sidebar .nav-link.active {
+            color: #2470dc;
+        }
 
-    .sidebar .nav-link:hover {
-        color: #2470dc;
-    }
+        .sidebar .nav-link:hover {
+            color: #2470dc;
+        }
 
-    .sidebar .nav-link i {
-        margin-right: 4px;
-        color: #727272;
-    }
+        .sidebar .nav-link i {
+            margin-right: 4px;
+            color: #727272;
+        }
 
-    .sidebar .nav-link.active i {
-        color: #2470dc;
-    }
-</style>
+        .sidebar .nav-link.active i {
+            color: #2470dc;
+        }
+    </style>
 @endpush
