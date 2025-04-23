@@ -20,8 +20,8 @@ class DesaController extends Controller
      */
     public function index()
     {
-        $desa = Desa::first();
-        return view('desa.index', compact('desa'));
+        $desas = Desa::paginate(10);
+        return view('desa.index', compact('desas'));
     }
 
     /**
@@ -37,36 +37,29 @@ class DesaController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nama_desa' => 'required|string|max:255',
+            'kode_desa' => 'required|string|max:10|unique:desa',
             'kecamatan' => 'required|string|max:255',
             'kabupaten' => 'required|string|max:255',
             'provinsi' => 'required|string|max:255',
-            'kode_pos' => 'required|string|max:10',
-            'alamat_kantor' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-            'telepon' => 'required|string|max:20',
-            'website' => 'nullable|string|max:255',
+            'alamat' => 'required|string',
+            'telepon' => 'nullable|string|max:20',
+            'email' => 'nullable|email|max:255',
+            'website' => 'nullable|url|max:255',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto_kantor' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'visi' => 'nullable|string',
+            'misi' => 'nullable|string',
+            'sejarah' => 'nullable|string',
+            'geografis' => 'nullable|string',
+            'demografis' => 'nullable|string'
         ]);
 
-        try {
-            $desa = new Desa($request->except('logo'));
-            
-            if ($request->hasFile('logo')) {
-                $logo = $request->file('logo');
-                $logoName = time() . '.' . $logo->getClientOriginalExtension();
-                $logo->move(public_path('uploads/desa'), $logoName);
-                $desa->logo = 'uploads/desa/' . $logoName;
-            }
+        $desa = Desa::create($validated);
 
-            $desa->save();
-
-            return redirect()->route('desa.index')
-                ->with('success', 'Data desa berhasil disimpan.');
-        } catch (\Exception $e) {
-            return back()->with('error', 'Terjadi kesalahan saat menyimpan data desa.');
-        }
+        return redirect()->route('desa.show', $desa->id_desa)
+            ->with('success', 'Data desa berhasil ditambahkan');
     }
 
     /**
@@ -90,41 +83,29 @@ class DesaController extends Controller
      */
     public function update(Request $request, Desa $desa)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nama_desa' => 'required|string|max:255',
+            'kode_desa' => 'required|string|max:10|unique:desa,kode_desa,' . $desa->id_desa . ',id_desa',
             'kecamatan' => 'required|string|max:255',
             'kabupaten' => 'required|string|max:255',
             'provinsi' => 'required|string|max:255',
-            'kode_pos' => 'required|string|max:10',
-            'alamat_kantor' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-            'telepon' => 'required|string|max:20',
-            'website' => 'nullable|string|max:255',
+            'alamat' => 'required|string',
+            'telepon' => 'nullable|string|max:20',
+            'email' => 'nullable|email|max:255',
+            'website' => 'nullable|url|max:255',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto_kantor' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'visi' => 'nullable|string',
+            'misi' => 'nullable|string',
+            'sejarah' => 'nullable|string',
+            'geografis' => 'nullable|string',
+            'demografis' => 'nullable|string'
         ]);
 
-        try {
-            $desa->fill($request->except('logo'));
-            
-            if ($request->hasFile('logo')) {
-                // Hapus logo lama jika ada
-                if ($desa->logo && file_exists(public_path($desa->logo))) {
-                    unlink(public_path($desa->logo));
-                }
+        $desa->update($validated);
 
-                $logo = $request->file('logo');
-                $logoName = time() . '.' . $logo->getClientOriginalExtension();
-                $logo->move(public_path('uploads/desa'), $logoName);
-                $desa->logo = 'uploads/desa/' . $logoName;
-            }
-
-            $desa->save();
-
-            return redirect()->route('desa.index')
-                ->with('success', 'Data desa berhasil diperbarui.');
-        } catch (\Exception $e) {
-            return back()->with('error', 'Terjadi kesalahan saat memperbarui data desa.');
-        }
+        return redirect()->route('desa.show', $desa->id_desa)
+            ->with('success', 'Data desa berhasil diperbarui');
     }
 
     /**
@@ -133,17 +114,17 @@ class DesaController extends Controller
     public function destroy(Desa $desa)
     {
         try {
-            // Hapus logo jika ada
-            if ($desa->logo && file_exists(public_path($desa->logo))) {
-                unlink(public_path($desa->logo));
+            if (!$desa) {
+                return redirect()->route('desa.index')
+                    ->with('error', 'Data desa tidak ditemukan');
             }
 
             $desa->delete();
-
             return redirect()->route('desa.index')
-                ->with('success', 'Data desa berhasil dihapus.');
+                ->with('success', 'Data desa berhasil dihapus');
         } catch (\Exception $e) {
-            return back()->with('error', 'Terjadi kesalahan saat menghapus data desa.');
+            return redirect()->route('desa.index')
+                ->with('error', 'Gagal menghapus data desa: ' . $e->getMessage());
         }
     }
-} 
+}

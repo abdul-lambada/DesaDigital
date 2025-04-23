@@ -1,3 +1,7 @@
+@php
+    use Illuminate\Support\Facades\Storage;
+@endphp
+
 <section>
     <h5 class="card-header p-0 mb-3">Profile Information</h5>
     <p class="mb-4 text-muted">Update your account's profile information and email address.</p>
@@ -6,9 +10,39 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="row">
+    <form method="post" action="{{ route('profile.update') }}" class="row" enctype="multipart/form-data">
         @csrf
         @method('patch')
+
+        <div class="d-flex align-items-start align-items-sm-center gap-4 mb-4">
+            <img src="{{ $user->avatar ? Storage::url($user->avatar) : asset('sneat/assets/img/avatars/1.png') }}"
+                alt="{{ $user->name }}'s avatar"
+                class="w-px-100 h-auto"
+                id="uploadedAvatar" />
+            <div class="button-wrapper">
+                <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                    <span class="d-none d-sm-block">Upload new photo</span>
+                    <i class="bx bx-upload d-block d-sm-none"></i>
+                    <input
+                        type="file"
+                        id="upload"
+                        name="avatar"
+                        class="account-file-input"
+                        hidden
+                        accept="image/png, image/jpeg"
+                        onchange="document.getElementById('uploadedAvatar').src = window.URL.createObjectURL(this.files[0])"
+                    />
+                </label>
+                @if($user->avatar)
+                    <button type="button" class="btn btn-outline-secondary account-image-reset mb-4" onclick="document.getElementById('remove_avatar').value='1'; document.getElementById('uploadedAvatar').src='{{ asset('sneat/assets/img/avatars/1.png') }}'">
+                        <i class="bx bx-reset d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Reset</span>
+                    </button>
+                @endif
+                <input type="hidden" name="remove_avatar" id="remove_avatar" value="0">
+                <p class="text-muted mb-0">Allowed JPG or PNG. Max size of 800K</p>
+            </div>
+        </div>
 
         <div class="mb-3 col-md-6">
             <label for="name" class="form-label">Name</label>

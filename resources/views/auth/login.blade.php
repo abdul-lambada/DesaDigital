@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
                     <div class="app-brand justify-content-center mb-4 mt-2">
                         <a href="/" class="app-brand-link gap-2">
                             <span class="app-brand-logo demo">
-                                <img src="{{ asset('assets/img/icons/brands/logo.svg') }}" alt="Logo" width="32">
+                                <img src="{{ asset('sneat/assets/img/favicon/favicon.ico') }}" alt="Logo" width="32">
                             </span>
                             <span class="app-brand-text demo text-body fw-bold ms-1">{{ config('app.name') }}</span>
                         </a>
@@ -35,11 +35,11 @@ use Illuminate\Support\Facades\Route;
 
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" 
-                                   class="form-control @error('email') is-invalid @enderror" 
-                                   id="email" 
-                                   name="email" 
-                                   value="{{ old('email') }}" 
+                            <input type="email"
+                                   class="form-control @error('email') is-invalid @enderror"
+                                   id="email"
+                                   name="email"
+                                   value="{{ old('email') }}"
                                    placeholder="Enter your email"
                                    autofocus />
                             @error('email')
@@ -55,8 +55,8 @@ use Illuminate\Support\Facades\Route;
                                 </a>
                             </div>
                             <div class="input-group input-group-merge">
-                                <input type="password" 
-                                       class="form-control @error('password') is-invalid @enderror" 
+                                <input type="password"
+                                       class="form-control @error('password') is-invalid @enderror"
                                        id="password"
                                        name="password"
                                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"

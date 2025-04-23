@@ -1,5 +1,6 @@
 @php
     use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\Storage;
 @endphp
 
 <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
@@ -14,7 +15,7 @@
         <div class="navbar-nav align-items-center">
             <div class="nav-item d-flex align-items-center">
                 <i class="bx bx-search fs-4 lh-0"></i>
-                <input type="text" class="form-control border-0 shadow-none ps-1" placeholder="Search..." aria-label="Search...">
+                <input type="text" class="form-control border-0 shadow-none ps-1 ps-sm-2" placeholder="Search..." aria-label="Search...">
             </div>
         </div>
         <!-- /Search -->
@@ -24,7 +25,9 @@
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                        <img src="{{ asset('sneat/assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
+                        <img src="{{ auth()->user()->avatar ? Storage::url(auth()->user()->avatar) : asset('sneat/assets/img/avatars/1.png') }}"
+                            alt="{{ auth()->user()->name }}'s avatar"
+                            class="w-px-40 h-auto rounded-circle">
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -33,12 +36,14 @@
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar avatar-online">
-                                        <img src="{{ asset('sneat/assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
+                                        <img src="{{ auth()->user()->avatar ? Storage::url(auth()->user()->avatar) : asset('sneat/assets/img/avatars/1.png') }}"
+                                            alt="{{ auth()->user()->name }}'s avatar"
+                                            class="w-px-40 h-auto rounded-circle">
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
-                                    <small class="text-muted">Admin</small>
+                                    <span class="fw-medium d-block">{{ auth()->user()->name }}</span>
+                                    <small class="text-muted">{{ auth()->user()->roles->first()->name ?? 'User' }}</small>
                                 </div>
                             </div>
                         </a>
@@ -69,4 +74,4 @@
             <!--/ User -->
         </ul>
     </div>
-</nav> 
+</nav>

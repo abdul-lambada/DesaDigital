@@ -2,25 +2,47 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Desa extends Model
 {
+    use HasFactory;
+
     protected $table = 'desa';
     protected $primaryKey = 'id_desa';
-    
+    public $incrementing = true;
+    public $timestamps = true;
+
     protected $fillable = [
         'nama_desa',
+        'kode_desa',
+        'kecamatan',
+        'kabupaten',
+        'provinsi',
+        'alamat',
+        'telepon',
+        'email',
+        'website',
+        'logo',
+        'foto_kantor',
+        'visi',
+        'misi',
         'sejarah',
-        'visi_misi',
-        'luas_wilayah',
-        'jumlah_penduduk',
-        'peta_lokasi',
-        'alamat_kantor',
-        'telepon_kantor',
-        'email_desa'
+        'geografis',
+        'demografis',
     ];
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'id_desa';
+    }
 
     public function pemerintahan(): HasMany
     {
@@ -56,4 +78,4 @@ class Desa extends Model
     {
         return $this->hasMany(TransparansiAnggaran::class, 'id_desa');
     }
-} 
+}

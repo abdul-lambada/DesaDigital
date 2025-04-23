@@ -1,34 +1,25 @@
 @extends('layouts.app')
 
-@section('title', 'Roles Management')
+@section('title', 'Daftar Role')
 
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">Settings /</span> Roles
+        <span class="text-muted fw-light">Role Management /</span> Daftar Role
     </h4>
 
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Roles</h5>
-            @can('create roles')
+            <h5 class="mb-0">Daftar Role</h5>
             <a href="{{ route('roles.create') }}" class="btn btn-primary">
-                <i class="bx bx-plus"></i> Add Role
+                <i class="bx bx-plus me-1"></i> Tambah Role
             </a>
-            @endcan
         </div>
 
         <div class="card-body">
             @if(session('success'))
-                <div class="alert alert-success alert-dismissible mb-3" role="alert">
+                <div class="alert alert-success alert-dismissible" role="alert">
                     {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-
-            @if(session('error'))
-                <div class="alert alert-danger alert-dismissible mb-3" role="alert">
-                    {{ session('error') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
@@ -37,7 +28,7 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>Nama</th>
                             <th>Permissions</th>
                             <th>Actions</th>
                         </tr>
@@ -48,7 +39,7 @@
                                 <td>{{ $role->name }}</td>
                                 <td>
                                     @foreach($role->permissions as $permission)
-                                        <span class="badge bg-label-primary me-1">{{ $permission->name }}</span>
+                                        <span class="badge bg-label-primary">{{ $permission->name }}</span>
                                     @endforeach
                                 </td>
                                 <td>
@@ -57,27 +48,12 @@
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            @can('view roles')
-                                            <a class="dropdown-item" href="{{ route('roles.show', $role) }}">
-                                                <i class="bx bx-show-alt me-1"></i> View
-                                            </a>
-                                            @endcan
-                                            @can('edit roles')
-                                            <a class="dropdown-item" href="{{ route('roles.edit', $role) }}">
+                                            <a class="dropdown-item" href="{{ route('roles.edit', $role->id) }}">
                                                 <i class="bx bx-edit-alt me-1"></i> Edit
                                             </a>
-                                            @endcan
-                                            @can('delete roles')
-                                            @if($role->name !== 'super-admin')
-                                            <form action="{{ route('roles.destroy', $role) }}" method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure you want to delete this role?')">
-                                                    <i class="bx bx-trash me-1"></i> Delete
-                                                </button>
-                                            </form>
-                                            @endif
-                                            @endcan
+                                            <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $role->id }}">
+                                                <i class="bx bx-trash me-1"></i> Hapus
+                                            </button>
                                         </div>
                                     </div>
                                 </td>
@@ -93,4 +69,13 @@
         </div>
     </div>
 </div>
-@endsection 
+
+@foreach($roles as $role)
+<x-delete-modal
+    id="deleteModal{{ $role->id }}"
+    title="Konfirmasi Hapus"
+    message="Apakah Anda yakin ingin menghapus role {{ $role->name }}?"
+    deleteUrl="{{ route('roles.destroy', $role->id) }}"
+/>
+@endforeach
+@endsection

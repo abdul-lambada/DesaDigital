@@ -55,7 +55,7 @@
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
-        @include('layouts.menu')
+        @include('layouts.sidebar')
         <!-- / Menu -->
 
         <!-- Layout container -->

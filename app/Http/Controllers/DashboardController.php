@@ -7,8 +7,12 @@ use App\Models\Berita;
 use App\Models\Pengaduan;
 use App\Models\PotensiDesa;
 use App\Models\LayananPublik;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
@@ -17,27 +21,16 @@ class DashboardController extends Controller
         $this->middleware('permission:view dashboard')->only('index');
     }
 
-    public function index()
+    public function index(): View
     {
-        $user = Auth::user();
-        $role = $user->roles->first()->name ?? 'warga';
-        
-        // Statistik data
-        $statistics = [
-            'total_warga' => Warga::count(),
-            'layanan_aktif' => LayananPublik::where('status', 'aktif')->count(),
-            'potensi_desa' => PotensiDesa::count(),
-            'pengaduan_terbaru' => Pengaduan::latest()->take(5)->get(),
-            'berita_terbaru' => Berita::latest()->take(5)->get(),
-        ];
-        
-        // Data yang akan ditampilkan berdasarkan role
         $data = [
-            'title' => $this->getDashboardTitle($role),
-            'menus' => $this->getMenusByPermissions($user)
+            'total_users' => User::count(),
+            'total_berita' => Berita::count(),
+            'total_pengaduan' => Pengaduan::count(),
+            'total_layanan' => LayananPublik::count(),
         ];
 
-        return view('dashboard', array_merge(compact('data', 'user'), $statistics));
+        return view('dashboard', compact('data'));
     }
 
     private function getDashboardTitle($role)
@@ -161,4 +154,4 @@ class DashboardController extends Controller
 
         return $menus;
     }
-} 
+}
