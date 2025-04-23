@@ -51,16 +51,16 @@ class RoleAndPermissionSeeder extends Seeder
         ];
 
         foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
+            Permission::firstOrCreate(['name' => $permission]);
         }
 
         // Create roles and assign permissions
         // Super Admin
-        $superAdmin = Role::create(['name' => 'super-admin']);
+        $superAdmin = Role::firstOrCreate(['name' => 'super-admin']);
         $superAdmin->givePermissionTo(Permission::all());
 
         // Admin Desa
-        $adminDesa = Role::create(['name' => 'admin-desa']);
+        $adminDesa = Role::firstOrCreate(['name' => 'admin-desa']);
         $adminDesa->givePermissionTo([
             'view users', 'create users', 'edit users',
             'view roles', 'view permissions',
@@ -79,7 +79,7 @@ class RoleAndPermissionSeeder extends Seeder
         ]);
 
         // Kepala Desa
-        $kepalaDesa = Role::create(['name' => 'kepala-desa']);
+        $kepalaDesa = Role::firstOrCreate(['name' => 'kepala-desa']);
         $kepalaDesa->givePermissionTo([
             'view desa', 'view pemerintahan', 'view wilayah',
             'view warga', 'view keluarga',
@@ -90,7 +90,7 @@ class RoleAndPermissionSeeder extends Seeder
         ]);
 
         // Perangkat Desa
-        $perangkatDesa = Role::create(['name' => 'perangkat-desa']);
+        $perangkatDesa = Role::firstOrCreate(['name' => 'perangkat-desa']);
         $perangkatDesa->givePermissionTo([
             'view warga', 'create warga', 'edit warga',
             'view keluarga', 'create keluarga', 'edit keluarga',
@@ -101,7 +101,7 @@ class RoleAndPermissionSeeder extends Seeder
         ]);
 
         // Warga
-        $warga = Role::create(['name' => 'warga']);
+        $warga = Role::firstOrCreate(['name' => 'warga']);
         $warga->givePermissionTo([
             'view desa', 'view pemerintahan', 'view wilayah',
             'view layanan', 'create pengaduan',

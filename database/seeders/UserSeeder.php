@@ -12,19 +12,19 @@ class UserSeeder extends Seeder
     {
         // Create Super Admin
         $superAdmin = User::create([
-            'name' => 'Admin Desa',
-            'email' => 'admin@desa.test',
+            'name' => 'Super Admin',
+            'email' => 'superadmin@desa.test',
             'password' => Hash::make('password')
         ]);
         $superAdmin->assignRole('super-admin');
 
-        // Create Admin Pengaduan
-        $adminPengaduan = User::create([
-            'name' => 'Admin Pengaduan',
-            'email' => 'pengaduan@desa.test',
+        // Create Admin Desa
+        $adminDesa = User::create([
+            'name' => 'Admin Desa',
+            'email' => 'admin@desa.test',
             'password' => Hash::make('password')
         ]);
-        $adminPengaduan->assignRole('admin-pengaduan');
+        $adminDesa->assignRole('admin-desa');
 
         // Create Kepala Desa
         $kepalaDesa = User::create([
@@ -41,14 +41,6 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password')
         ]);
         $perangkatDesa->assignRole('perangkat-desa');
-
-        // Create Moderator
-        $moderator = User::create([
-            'name' => 'Moderator',
-            'email' => 'moderator@desa.test',
-            'password' => Hash::make('password')
-        ]);
-        $moderator->assignRole('moderator');
 
         // Create Sample Warga
         $warga = User::create([

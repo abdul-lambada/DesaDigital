@@ -4,6 +4,11 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Middlewares\PermissionMiddleware;
+use Spatie\Permission\Middlewares\RoleMiddleware;
+use Spatie\Permission\Middlewares\RoleOrPermissionMiddleware;
 
 class PermissionServiceProvider extends ServiceProvider
 {
@@ -20,6 +25,20 @@ class PermissionServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Register middleware
+        $this->app['router']->aliasMiddleware('permission', \Spatie\Permission\Middlewares\PermissionMiddleware::class);
+        $this->app['router']->aliasMiddleware('role', \Spatie\Permission\Middlewares\RoleMiddleware::class);
+        $this->app['router']->aliasMiddleware('role_or_permission', \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class);
+
+        // Register model bindings
+        $this->app->bind(Permission::class, function ($app) {
+            return new Permission();
+        });
+
+        $this->app->bind(Role::class, function ($app) {
+            return new Role();
+        });
+
         // Blade directive for checking permissions
         Blade::directive('permission', function ($expression) {
             return "<?php if(auth()->check() && auth()->user()->hasPermissionTo({$expression})): ?>";
@@ -30,7 +49,7 @@ class PermissionServiceProvider extends ServiceProvider
 
         // Blade directive for checking any permissions
         Blade::directive('anypermission', function ($expression) {
-            return "<?php if(auth()->check() && auth()->user()->hasAnyPermissionTo({$expression})): ?>";
+            return "<?php if(auth()->check() && auth()->user()->hasAnyPermission({$expression})): ?>";
         });
         Blade::directive('endanypermission', function () {
             return "<?php endif; ?>";
@@ -38,7 +57,7 @@ class PermissionServiceProvider extends ServiceProvider
 
         // Blade directive for checking all permissions
         Blade::directive('allpermissions', function ($expression) {
-            return "<?php if(auth()->check() && auth()->user()->hasAllPermissionsTo({$expression})): ?>";
+            return "<?php if(auth()->check() && auth()->user()->hasAllPermissions({$expression})): ?>";
         });
         Blade::directive('endallpermissions', function () {
             return "<?php endif; ?>";

@@ -13,7 +13,11 @@ use App\Traits\HasPermissionChecks;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, HasPermissionChecks;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, HasPermissionChecks {
+        HasRoles::hasAllPermissions insteadof HasPermissionChecks;
+        HasPermissionChecks::hasAllPermissionsTo as hasAllPermissionsTo;
+        HasPermissionChecks::hasAnyPermissionTo as hasAnyPermissionTo;
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -45,14 +49,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-    /**
-     * Get all permissions for the user including permissions from roles.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function getAllPermissions()
-    {
-        return $this->getAllPermissions();
-    }
 }
