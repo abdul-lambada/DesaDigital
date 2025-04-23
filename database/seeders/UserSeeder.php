@@ -18,36 +18,20 @@ class UserSeeder extends Seeder
         ]);
         $superAdmin->assignRole('super-admin');
 
-        // Create Admin Desa
-        $adminDesa = User::create([
-            'name' => 'Admin Desa',
+        // Create Admin
+        $admin = User::create([
+            'name' => 'Admin',
             'email' => 'admin@desa.test',
             'password' => Hash::make('password')
         ]);
-        $adminDesa->assignRole('admin-desa');
+        $admin->assignRole('admin');
 
-        // Create Kepala Desa
-        $kepalaDesa = User::create([
-            'name' => 'Kepala Desa',
-            'email' => 'kepala@desa.test',
+        // Create User
+        $user = User::create([
+            'name' => 'User',
+            'email' => 'user@desa.test',
             'password' => Hash::make('password')
         ]);
-        $kepalaDesa->assignRole('kepala-desa');
-
-        // Create Perangkat Desa
-        $perangkatDesa = User::create([
-            'name' => 'Perangkat Desa',
-            'email' => 'perangkat@desa.test',
-            'password' => Hash::make('password')
-        ]);
-        $perangkatDesa->assignRole('perangkat-desa');
-
-        // Create Sample Warga
-        $warga = User::create([
-            'name' => 'Warga',
-            'email' => 'warga@desa.test',
-            'password' => Hash::make('password')
-        ]);
-        $warga->assignRole('warga');
+        $user->assignRole('user');
     }
-} 
+}

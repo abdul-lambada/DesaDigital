@@ -151,7 +151,7 @@ return [
      * setting is false here for optimum safety.
      */
 
-    'display_permission_in_exception' => true,
+    'display_permission_in_exception' => false,
 
     /*
      * When set to true, the required role names are added to exception messages.
@@ -159,7 +159,7 @@ return [
      * setting is false here for optimum safety.
      */
 
-    'display_role_in_exception' => true,
+    'display_role_in_exception' => false,
 
     /*
      * By default wildcard permission lookups are disabled.

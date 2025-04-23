@@ -7,13 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
-use Laravel\Sanctum\HasApiTokens;
 use App\Traits\HasPermissionChecks;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, HasPermissionChecks {
+    use HasFactory, Notifiable, HasRoles, HasPermissionChecks {
         HasRoles::hasAllPermissions insteadof HasPermissionChecks;
         HasPermissionChecks::hasAllPermissionsTo as hasAllPermissionsTo;
         HasPermissionChecks::hasAnyPermissionTo as hasAnyPermissionTo;
