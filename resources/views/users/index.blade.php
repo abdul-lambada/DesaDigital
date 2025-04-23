@@ -1,18 +1,18 @@
 @extends('layouts.app')
 
-@section('title', 'Users')
+@section('title', 'Daftar Pengguna')
 
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">User Management /</span> Users
+        <span class="text-muted fw-light">User Management /</span> Daftar Pengguna
     </h4>
 
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Users</h5>
+            <h5 class="mb-0">Daftar Pengguna</h5>
             <a href="{{ route('users.create') }}" class="btn btn-primary">
-                <i class="bx bx-plus"></i> Add New User
+                <i class="bx bx-plus me-1"></i> Tambah Pengguna
             </a>
         </div>
 
@@ -28,9 +28,9 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>Nama</th>
                             <th>Email</th>
-                            <th>Roles</th>
+                            <th>Role</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -50,16 +50,12 @@
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{ route('users.edit', $user) }}">
+                                            <a class="dropdown-item" href="{{ route('users.edit', $user->id) }}">
                                                 <i class="bx bx-edit-alt me-1"></i> Edit
                                             </a>
-                                            <form action="{{ route('users.destroy', $user) }}" method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure you want to delete this user?')">
-                                                    <i class="bx bx-trash me-1"></i> Delete
-                                                </button>
-                                            </form>
+                                            <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $user->id }}">
+                                                <i class="bx bx-trash me-1"></i> Hapus
+                                            </button>
                                         </div>
                                     </div>
                                 </td>
@@ -75,4 +71,13 @@
         </div>
     </div>
 </div>
+
+@foreach($users as $user)
+<x-delete-modal
+    id="deleteModal{{ $user->id }}"
+    title="Konfirmasi Hapus"
+    message="Apakah Anda yakin ingin menghapus pengguna {{ $user->name }}?"
+    deleteUrl="{{ route('users.destroy', $user->id) }}"
+/>
+@endforeach
 @endsection
